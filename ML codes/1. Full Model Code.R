@@ -103,6 +103,8 @@ table(jp$retention) # Check class balance after downsampling
 
 # ------------ Model Continues from here-------------- #
 # Define model specifications
+
+# Elastic Net Logistic Regression
 log_spec <- logistic_reg(
   penalty = tune(),       # Regularization penalty (L1/L2 regularization)
   mixture = tune()) |>    # Mixture between L1 (lasso) and L2 (ridge)
@@ -110,6 +112,7 @@ log_spec <- logistic_reg(
   set_mode("classification")
 
 
+# Random Forest
 rf_spec <- rand_forest(
   mtry  = tune(), # Number of predictors sampled for splitting at each node
   min_n = tune(), # Minimum number of data points in a node
@@ -120,6 +123,7 @@ rf_spec <- rand_forest(
   set_mode("classification")
 
 
+# XGBoost
 xgb_spec <- boost_tree(
   trees          = tune(), # Number of trees (iterations)
   mtry           = tune(), # Number of predictors sampled for splitting at each node (max_features in xgboost) 
